@@ -12,9 +12,7 @@ from layers.Transformer_encoder_similarity import TransformerEncoder
 
 
 class Model(nn.Module):
-    """
-    Paper link: https://arxiv.org/abs/2310.06625
-    """
+
 
     def __init__(self, configs):
         super(Model, self).__init__()
@@ -27,9 +25,6 @@ class Model(nn.Module):
         self.compare_baseline = configs.compare_baseline
 
         self.output_attention = configs.output_attention
-        # Embedding
-        # self.enc_embedding = DataEmbedding_inverted(configs.seq_len, configs.d_model, configs.embed, configs.freq,
-        #                                             configs.dropout)
 
         self.PositionalEmbedding = PositionalEmbedding(configs.d_model)
         self.class_strategy = configs.class_strategy
@@ -80,9 +75,6 @@ class Model(nn.Module):
         self.LNorm = nn.LayerNorm(16)
 
         self.Linear_concat = nn.Linear(configs.d_model * 2, 16)
-
-        # self.MyMappingNetwork_FFN = MyMappingNetwork_FFN(configs.d_model, configs.dropout)
-        # similarity_heads = self.d_model // 8
 
         self.TransformerEncoder_similarity_up = TransformerEncoder(configs.e_layers, configs.d_model, configs.n_heads, self.seq_len, configs.d_ff, configs.dropout)
 
@@ -158,7 +150,7 @@ class Model(nn.Module):
 
     def unsimilarity_former(self, similarity_down_all, similarity_down_id, B, N):
 
-        Multiple_i = 0      # 参数冻结
+        Multiple_i = 0      # 
         # if len(similarity_down_id) >= 1:
         similarity_down_all = self.encoder(similarity_down_all, Multiple_i, N)
         similarity_down_all = similarity_down_all.reshape(-1, B, self.seq_len, self.d_model)
@@ -193,19 +185,7 @@ class Model(nn.Module):
         # L: seq_len;       S: pred_len;
         # N: number of variate (tokens), can also includes covariates
 
-        # Embedding
-        # B L N -> B N E                (B L N -> B L E in the vanilla Transformer)
-        # enc_out_multi_step = self.enc_embedding(x_enc, x_mark_enc) # covariates (e.g timestamp) can be also embedded as tokens
 
-        ##### do patch  ###
-        # x_enc_patch = x_enc.transpose(2, 1).unfold(dimension=-1, size=self.patch_len, step=self.stride)  # 32 7 11 16
-        # x_enc_patch = self.embedding_patch(x_enc_patch)
-        # x_enc_patch = x_enc_patch.reshape(-1, self.patch_num, self.d_model)
-        # x_enc_patch = self.PositionalEmbedding(x_enc_patch) + x_enc_patch
-        # x_enc_patch = x_enc_patch.reshape(-1, N, self.patch_num, self.d_model)   # 16 7 11 128
-        # enc_out_in = x_enc_patch.transpose(1, 0)
-        # enc_out = enc_out_in
-        # ######## 嵌入 ### 也可以考虑patch, 32 7 42 16, 然后16映射到128
         enc_out_in, enc_out = self.Embedding(x_enc)         # 7 32 96 128
 
 

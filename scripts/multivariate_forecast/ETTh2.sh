@@ -35,8 +35,7 @@ model_name=CVACL_MA
 #      --itr 1
 #done
 
-# compare_baseline 4 or 5 better
-# layer增大变好
+
 for pred_len in 96 192 336 720
 do
 python -u run.py \
@@ -70,4 +69,3 @@ python -u run.py \
       --itr 1
 done
 
-# 0.1 以上4个  # 0.2以上 3个    # 0.3 以上 2个   # 0.4 以上 2个   # 0.5以上1个

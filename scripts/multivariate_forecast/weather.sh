@@ -30,7 +30,7 @@ python -u run.py \
         --train_epochs 20 \
         --patience 3 \
         --n_heads 8 \
-        --alpha 0 \
+        --alpha 0.1 \
         --batch_size 16 \
         --compare_baseline -1 \
         --learning_rate 0.0005
@@ -63,7 +63,7 @@ python -u run.py \
         --train_epochs 20 \
         --patience 3 \
         --n_heads 8 \
-        --alpha 0 \
+        --alpha 0.1 \
         --batch_size 32 \
         --compare_baseline -1 \
         --learning_rate 0.001
@@ -98,10 +98,8 @@ python -u run.py \
         --train_epochs 20 \
         --patience 3 \
         --n_heads 8 \
-        --alpha 0 \
+        --alpha 0.1 \
         --batch_size 16 \
         --compare_baseline -1 \
         --learning_rate 0.001
 done
-# 以OT为基线， 0.4以上有3个，0.3以上有3个（4，10，20），0.2以上4个， 0.1以上有4个， 0以上有10个。
-# 4720可视化好一些

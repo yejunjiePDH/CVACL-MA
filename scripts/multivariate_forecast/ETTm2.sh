@@ -32,9 +32,6 @@ python -u run.py \
       --patience 3 \
       --n_heads 4 \
       --compare_baseline 5 \
-      --alpha 0 \
+      --alpha 0.1 \
       --itr 1
 done
-
-# learning_rate 0.0003 0.0004
-# 0.5 以上1个    # 0.4 以上偶尔2个    # 0.3以上2个   # 0.2以上2-4个   # 0.1以上 4个
